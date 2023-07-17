@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:kamus/page/new_page.dart';
+import 'package:kamus/page/translate_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,106 +11,107 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //controller to get input
-  final _textController = TextEditingController();
+//
+  double smallDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 2 / 3;
+  double bigDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 7 / 8;
 
-  String thePost = '';
+//index dan list Navbar
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    TranslatePage(),
+    NewPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[50],
-      appBar: AppBar(
-        backgroundColor: Colors.orange[500],
+      backgroundColor: Colors.transparent,
+      /*  appBar: AppBar(
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text('Kamus Batak'),
+      ), */
+
+      //
+      body:
+
+          //style background
+          Stack(
+        children: [
+          Positioned(
+            right: -smallDiameter(context) / 5,
+            top: -smallDiameter(context) / 3,
+            child: Container(
+              width: smallDiameter(context),
+              height: smallDiameter(context),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                    colors: [Color(0xFF764AF1), Color(0xFF9772FB)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
+            ),
+          ),
+          Positioned(
+            left: -smallDiameter(context) / 3,
+            top: -smallDiameter(context) / 3,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Kamus Batak',
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                ),
+              ),
+              width: bigDiameter(context),
+              height: bigDiameter(context),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                    colors: [Color(0xFF764AF1), Color(0xFF9772FB)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
+            ),
+          ),
+
+          // memanggil index navbar
+          Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+        ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(70)),
-              child: Container(
-                color: Colors.orange[500],
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Translate Bahasa',
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
-                        ),
-                        Text(
-                          'Batak -> indonesia',
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+
+      //
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+          child: GNav(
+            onTabChange: _onItemTapped,
+            selectedIndex: _selectedIndex,
+            color: Color(0xFF9772FB),
+            activeColor: Color(0xFFF32424),
+            tabBackgroundColor: Colors.grey.shade200,
+            tabs: [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
               ),
-            ),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-                child: Container(
-                  padding: EdgeInsets.all(25),
-                  child: Center(
-                    child: Column(children: [
-                      //inputan
-                      TextField(
-                        controller: _textController,
-                        decoration: InputDecoration(
-                          hintText: 'type something',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: 25,
-                      ),
-
-                      //tombol eksekusi
-                      MaterialButton(
-                        color: Colors.black,
-                        child: Text(
-                          'Translate',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            thePost = _textController.text;
-                          });
-                        },
-                      ),
-
-                      SizedBox(
-                        height: 25,
-                      ),
-
-                      //hasil
-
-                      Text(
-                        'data',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      Text(thePost),
-                    ]),
-                  ),
-                ),
-              ),
-            ),
-          ],
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              )
+            ],
+          ),
         ),
       ),
     );
