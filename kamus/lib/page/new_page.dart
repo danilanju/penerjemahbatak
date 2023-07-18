@@ -28,32 +28,34 @@ class NewPage extends StatelessWidget {
             Column(
               children: [
                 Container(
-                    width: double
-                        .infinity, // Atur lebar Container sesuai kebutuhan
-                    height: 150, // Atur tinggi Container sesuai kebutuhan
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: Offset(0, 3), // Atur offset bayangan
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      'Tempat Crud',
-                      style: TextStyle(fontSize: 30),
-                    )),
-
-                //
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Text('data'),
-                )
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  height: 150,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3), // offset bayangan
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(child: Text('ini untuk batak')),
+                          SizedBox(child: Text('ini Untuk Indo')),
+                        ],
+                      ),
+                      SizedBox(child: Text('ini untuk keterangan'))
+                    ],
+                  ),
+                ),
               ],
             ),
           ],

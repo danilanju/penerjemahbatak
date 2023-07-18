@@ -46,6 +46,11 @@ class _HomePageState extends State<HomePage> {
           //style background
           Stack(
         children: [
+          Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width * 1,
+            height: MediaQuery.of(context).size.height * 1,
+          ),
           Positioned(
             right: -smallDiameter(context) / 5,
             top: -smallDiameter(context) / 3,
@@ -96,6 +101,7 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
           child: GNav(
+            padding: EdgeInsets.all(10),
             onTabChange: _onItemTapped,
             selectedIndex: _selectedIndex,
             color: Color(0xFF9772FB),
